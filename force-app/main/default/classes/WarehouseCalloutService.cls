@@ -3,7 +3,11 @@ public with sharing class WarehouseCalloutService implements Queueable, Database
     private static final String WAREHOUSE_URL = 'https://th-superbadge-apex.herokuapp.com/equipment';
 
     public void execute(QueueableContext qc) {
+        getInventory();
+       
+    }
 
+    public static HttpResponse getInventory() {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         //set endpoint
@@ -46,6 +50,6 @@ public with sharing class WarehouseCalloutService implements Queueable, Database
                 upsert productList Warehouse_SKU__c;
             }
         }
-    }
-    
+        return response;
+    } 
 }
